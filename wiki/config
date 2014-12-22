@@ -1,0 +1,72 @@
+use utf8;
+use DateTime;
+package OddMuse;
+
+$SiteName  = "AlexDaniel";
+
+use Digest::SHA qw(sha256_hex);
+$PassHashFunction = 'sha256_hex';
+$PassSalt = '0c5bc418b2009ab13b2cf1d5b4a46b0882cf4f60a77b09373ef5c9af26f67500';
+$AdminPass = '6a6f03729f9b663882242c72e26301410cdc8671b9269dbfd40450c5e6dfeb6d';
+
+$CommentsPrefix = 'Comments_on_';
+$CommentsPattern = "^(?|Comments_on_(.*)|.*)\$";
+$EditAllowed = 1;
+$StyleSheet = '/css/stylesheet.css';
+$AskPage = 'Ask';
+$MaxPost = 430080;
+$HomePage = 'Blog';
+$RCName = 'Recent Changes';
+@UserGotoBarPages = ($HomePage, $AskPage, $RCName);
+$SurgeProtectionViews = 20;
+
+$Translate{'Journal'} = ' ';
+
+$FullUrl = ($ENV{'HTTPS'} ? 'https' : 'http') . '://alexdaniel.org';
+$ScriptName = ($ENV{'HTTPS'} ? 'https' : 'http') . '://alexdaniel.org';
+
+$CreoleLineBreaks = 1;
+$CreoleTableCellsAllowBlockLevelElements = 1;
+$CreoleDashStyleUnorderedLists = 1;
+
+@QuestionaskerQuestions = (
+  ['Please write "I promise not to take things too close to my heart":'
+  	   => sub { shift =~ /I promise not to take things too close to my heart/i }]
+);
+
+$Translate{'Search:'} = ' ';
+$Translate{'Go!'} = 'Search';
+$Translate{'Edit this page'} = 'Edit';
+$Translate{'Comments on this page'} = 'Comments';
+$Translate{'To save this page you must answer this question:'} = 'Spam protection!';
+
+sub GetSearchForm {
+    my $form = # $q->label({-for=>'search'}, '') . ''
+      $q->textfield(-name=>'search', -id=>'search', -size=>20, -placeholder=>'Find...',
+                    -accesskey=>T('f')) . '';
+    if ($ReplaceForm) {
+        $form .= $q->label({-for=>'replace'}, T('Replace:')) . ' '
+            . $q->textfield(-name=>'replace', -id=>'replace', -size=>20) . ' '
+            . $q->checkbox(-name=>'delete', -label=>T('Delete')) . ' ';
+    }
+    if (%Languages) {
+        $form .= $q->label({-for=>'searchlang'}, T('Language:')) . ' '
+            . $q->textfield(-name=>'lang', -id=>'searchlang', -size=>10,
+                            -default=>GetParam('lang', '')) . ' ';
+  }
+    return GetFormStart(undef, 'get', 'search')
+        . $form . #$q->submit('dosearch', T('Go!')) .
+        $q->endform;
+}
+
+sub GetHeaderTitle {
+  my ($id, $title, $oldId) = @_;
+  return $q->h1($title) if $id eq '';
+  return $q->h1(((UserCanEdit($id, 0) and $id ne $AskPage) ? GetEditLink($id, T('Edit this page'), undef, T('e')) : '') .
+		GetSearchLink($id, '', '', T('Click to search for references to this page')));
+}
+
+sub PrintPageCommentsLink {
+  my ($id, $comments) = @_;
+  print $q->p({-class=>'comment'}, GetPageLink($id, T('Comments on this page')));
+}
