@@ -35,20 +35,26 @@ body {
 } */
 
 form.search {
-    float: right;
-/*    display: inline;*/
-    padding: 6px 8px 6px 35px;
+    /*padding: 6px 8px 6px 35px;
     margin-right: 5px;
-    margin-top: -18px;
+    margin-top: -10px;*/
+    padding: 10px;
+    margin: 5px;
+    float: right;
+}
+
+form.search p {
+    display: inline;
 }
 
 form.search input[type="text"] {
-/*    border: 1px solid #D1D1D1; */
     font: bold 12px Arial,Helvetica,Sans-serif;
-    width: 170px;
-    padding: 6px 12px;
-    margin-right: 5px;
-    margin-top: 15px;
+    width: 140px;
+    height: 20px;
+    padding: 3px 12px;
+    margin-top: -3px;
+/*    margin-right: 5px;
+    margin-top: 15px;*/
 }
 
 h1 {
@@ -80,12 +86,9 @@ a:active {
     text-decoration: underline;
 }
 
-.header>.gotobar {
-    float: left;
+.header .gotobar {
     font-family: terminus1;
 /*    font-family: Arial,Helvetica,sans-serif; */
-    position: static;
-    width: 100%;
 }
 
 
@@ -110,13 +113,13 @@ h3 {
     font-weight: normal;
 }
 
-.gotobar>a {
+.gotobar a {
     right: 0px;
     top: 0px;
     white-space: nowrap;
 }
 
-.header>.gotobar>a {
+.header .gotobar a {
 /*    color: #888888; */
     font-family: terminus1;
 /*    font-family: Arial,Helvetica,sans-serif; */
@@ -128,16 +131,16 @@ h3 {
     margin-bottom: 0px !important;
 }
 
-.header>.gotobar>a:hover {
+.header .gotobar a:hover {
     text-decoration: none;
     outline: #BBBBBB solid 1px;
-} 
+}
 
 .local {
     height: 100%;
 }
 
-input, textarea { 
+input, textarea {
     color: #BBBBBB;
     background-color: #111111;
     border-style: solid;
