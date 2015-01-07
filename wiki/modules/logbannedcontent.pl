@@ -14,7 +14,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
-$ModulesDescription .= '<p><a href="http://git.savannah.gnu.org/cgit/oddmuse.git/tree/modules/logbannedcontent.pl">logbannedcontent.pl</a>, see <a href="http://www.oddmuse.org/cgi-bin/oddmuse/LogBannedContent_Module">LogBannedContent Module</a></p>';
+AddModuleDescription('logbannedcontent.pl', 'LogBannedContent Module');
 
 use vars qw($BannedFile);
 
@@ -37,7 +37,7 @@ sub LogNewBannedContent {
 sub LogNewUserIsBanned {
   my $str = shift;
   my $rule = LogOldUserIsBanned($str);
-  LogWrite(Ts('Host or IP matched %s', $rule)) if $rule;
+  LogWrite(Ts('IP number matched %s', $rule)) if $rule;
   return $rule;
 }
 
@@ -45,6 +45,6 @@ sub LogWrite {
   my $rule = shift;
   my $id = $OpenPageName || GetId();
   AppendStringToFile($BannedFile,
-		     join("\t", TimeToW3($Now), $ENV{'REMOTE_ADDR'}, $id, $rule)
+		     join("\t", TimeToW3($Now), GetRemoteHost(), $id, $rule)
 		     . "\n");
 }

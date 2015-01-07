@@ -15,7 +15,7 @@
 
 package OddMuse;
 
-$ModulesDescription .= '<p><a href="http://git.savannah.gnu.org/cgit/oddmuse.git/tree/modules/comment-div-wrapper.pl">comment-div-wrapper.pl</a>, see <a href="http://www.oddmuse.org/cgi-bin/oddmuse/Comment_Div_Wrapper_Extension">Comment Div Wrapper Extension</a></p>';
+AddModuleDescription('comment-div-wrapper.pl', 'Comment Div Wrapper Extension');
 
 my $CommentDiv = 0;
 push(@MyRules, \&CommentDivWrapper);
@@ -25,14 +25,14 @@ sub CommentDivWrapper {
   if (substr($OpenPageName, 0, length($CommentsPrefix)) eq $CommentsPrefix) {
     if (pos == 0 and not $CommentDiv) {
       $CommentDiv = 1;
-      return '<div class="userComment">';
+      return $q->start_div({-class=>'userComment'});
     }
   }
   if ($OpenPageName =~ /$CommentsPattern/o) {
     if ($bol and m/\G(\s*\n)*----+[ \t]*\n?/cg) {
       my $html = CloseHtmlEnvironments()
-          . ($CommentDiv++ > 0 ? '</div>' : '<h2 id="commentsHeading">Comments:</h2>') . '<div class="userComment">'
-          . AddHtmlEnvironment('p');
+	  . ($CommentDiv++ > 0 ? $q->end_div() : $q->h2({-class=>'commentsHeading'}, T('Comments:'))) . $q->start_div({-class=>'userComment'})
+	  . AddHtmlEnvironment('p');
       return $html;
     }
   }
@@ -46,8 +46,8 @@ sub CommentDivWrapper {
 sub NewCommentDivApplyRules {
   my ($blocks, $flags) = OldCommentDivApplyRules(@_);
   if ($CommentDiv) {
-    print '</div>';
-    $blocks .= $FS . '</div>';
+    print $q->end_div();
+    $blocks .= $FS . $q->end_div();
     $flags .= $FS . 0;
     $CommentDiv = 0;
   }

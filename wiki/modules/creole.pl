@@ -14,7 +14,7 @@ directory for your Oddmuse Wiki.
 =cut
 package OddMuse;
 
-$ModulesDescription .= '<p><a href="http://git.savannah.gnu.org/cgit/oddmuse.git/tree/modules/creole.pl">creole.pl</a>, see <a href="http://www.oddmuse.org/cgi-bin/oddmuse/Creole_Markup_Extension">Creole Markup Extension</a></p>';
+AddModuleDescription('creole.pl', 'Creole Markup Extension');
 
 # ....................{ CONFIGURATION                      }....................
 
@@ -242,6 +242,7 @@ sub CreoleRule {
              -class=> 'image outside'},
             $q->img({-src=> UnquoteHtml($1),
                      -alt=> UnquoteHtml($3),
+                     -title=> UnquoteHtml($3),
                      -class=> 'url outside'})));
   }
   # image link: [[link|{{pic}}]] and [[link|{{pic|text}}]]
@@ -252,6 +253,7 @@ sub CreoleRule {
       ScriptLink(UrlEncode(FreeToNormal($2)),
                  $q->img({-src=> GetDownloadLink(FreeToNormal($3), 2),
                           -alt=> UnquoteHtml($text),
+                          -title=> UnquoteHtml($text),
                           -class=> 'upload'}), 'image')), $text);
   }
   # image link: [[link|{{url}}]] and [[link|{{url|text}}]]
@@ -262,6 +264,7 @@ sub CreoleRule {
       ScriptLink(UrlEncode(FreeToNormal($2)),
                  $q->img({-src=> UnquoteHtml($3),
                           -alt=> UnquoteHtml($text),
+                          -title=> UnquoteHtml($text),
                           -class=> 'url outside'}), 'image')), $text);
   }
   # image link: [[url|{{pic}}]] and [[url|{{pic|text}}]]
@@ -272,6 +275,7 @@ sub CreoleRule {
       $q->a({-href=> UnquoteHtml($2), -class=> 'image outside'},
             $q->img({-src=> GetDownloadLink(FreeToNormal($3), 2),
                      -alt=> UnquoteHtml($text),
+                     -title=> UnquoteHtml($text),
                      -class=> 'upload'}))), $text);
   }
   # image link: [[url|{{url}}]] and [[url|{{url|text}}]]
@@ -281,6 +285,7 @@ sub CreoleRule {
       $q->a({-href=> UnquoteHtml($1), -class=> 'image outside'},
             $q->img({-src=> UnquoteHtml($2),
                      -alt=> UnquoteHtml($4),
+                     -title=> UnquoteHtml($4),
                      -class=> 'url outside'})));
   }
   # link: [[url]] and [[url|text]]
@@ -456,21 +461,16 @@ sub CreoleListAndNewLineRule {
   my $is_in_list_item  = InElement('li');
 
   # # numbered list
-  if (($bol             and m/\G[ \t]*(#)[ \t]*/cg) or
-      ($is_in_list_item and m/\G[ \t]*\n+[ \t]*(#+)[ \t]*/cg)) {
+  # * bullet list (nestable; needs space when nested to disambiguate from bold)
+  if (($bol             and m/\G[ \t]*([#*])[ \t]*/cg) or
+      ($is_in_list_item and m/\G[ \t]*\n+[ \t]*(#+)[ \t]*/cg) or 
+      ($is_in_list_item and m/\G[ \t]*\n+[ \t]*(\*+)[ \t]+/cg)) {
     # Note: the first line of this return statement is --not-- equivalent to:
     # "return CloseHtmlEnvironmentUntil('li')", as that line does not permit
     # modules overriding the CloseHtmlEnvironments() function to "have a say."
     return ($is_in_list_item ? CloseHtmlEnvironmentUntil('li') : CloseHtmlEnvironments())
-      .OpenHtmlEnvironment('ol', length($1))
-      .AddHtmlEnvironment ('li');
-  }
-  # * bullet list (nestable; needs space when nested to disambiguate from bold)
-  elsif (($bol             and m/\G[ \t]*(\*)[ \t]*/cg) or
-         ($is_in_list_item and m/\G[ \t]*\n+[ \t]*(\*+)[ \t]+/cg)) {
-    return ($is_in_list_item ? CloseHtmlEnvironmentUntil('li') : CloseHtmlEnvironments())
-      .OpenHtmlEnvironment('ul', length($1))
-      .AddHtmlEnvironment ('li');
+      .OpenHtmlEnvironment(substr($1, 0, 1) eq '#' ? 'ol' : 'ul', length($1), '', 'ol|ul')
+      .AddHtmlEnvironment('li');
   }
   # - bullet list (not nestable; always needs space)
   elsif ($CreoleDashStyleUnorderedLists and (
