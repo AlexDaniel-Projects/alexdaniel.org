@@ -309,3 +309,11 @@ img {
 .dity {
     margin: -15px 0 0 -200px;
 }
+
+.old, .diffactionold, .updaterold {
+    background-color: #371111;
+}
+
+.new, .diffactionnew, .updaternew {
+    background-color: #113711;
+}
