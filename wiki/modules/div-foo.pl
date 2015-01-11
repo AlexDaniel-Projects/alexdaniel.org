@@ -25,8 +25,9 @@ sub DivFooRule {
   if (m/\G\&lt;([a-z-_][a-z-_ ]+[a-z-_])\&gt;\s*\n/cg) {
     return CloseHtmlEnvironment('p') . AddHtmlEnvironment('div', 'class="' . join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) . '"');
   }
-  if (m/\G\&lt;([a-z-_][a-z-_ ]+[a-z-_])\&gt;/cg) {
-    return AddHtmlEnvironment('span', 'class="' . join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) . '"');
+  if (m/\G\&lt;([a-z-_][a-z-_ ]+[a-z-_])(\?(.*?(?=\&gt;)))?\&gt;/cg) {
+    my $title = $3 ? ' title="' . QuoteHtml($3) . '"' : '';
+    return AddHtmlEnvironment('span', 'class="' . join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) . '"' . $title);
   }
   if (m/\G\&lt;\/\/\&gt;/cg) {
     return CloseHtmlEnvironment('div') . (InElement('div') ? '' : AddHtmlEnvironment('p'));
