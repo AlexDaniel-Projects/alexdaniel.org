@@ -53,8 +53,6 @@ form.search input[type="text"] {
     height: 20px;
     padding: 3px 12px;
     margin-top: -3px;
-/*    margin-right: 5px;
-    margin-top: 15px;*/
 }
 
 h1 {
@@ -88,6 +86,7 @@ a:active {
 
 .header .gotobar {
     font-family: terminus1;
+    line-height: 50px;
 /*    font-family: Arial,Helvetica,sans-serif; */
 }
 
@@ -114,21 +113,16 @@ h3 {
 }
 
 .gotobar a {
-    right: 0px;
-    top: 0px;
+    font-family: terminus1;
+    font-size: 16px;
+    padding: 14px;
+    margin: 0px;
+    font-weight: normal;
     white-space: nowrap;
 }
 
-.header .gotobar a {
-/*    color: #888888; */
-    font-family: terminus1;
-/*    font-family: Arial,Helvetica,sans-serif; */
-    font-size: 16px;
-    padding: 10px;
-    font-weight: normal;
-    float: left;
-    margin-top: 0px !important;
-    margin-bottom: 0px !important;
+.footer .edit a {
+    margin-right: 25px;
 }
 
 .header .gotobar a:hover {
