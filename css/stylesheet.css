@@ -304,6 +304,13 @@ img {
     margin: -15px 0 0 -200px;
 }
 
+.foo_titletext {
+    text-decoration-line: underline;
+    text-decoration-style: dashed; /* does not work in othor browsers yet (except Firefox) */
+    -moz-text-decoration-line: underline;
+    -moz-text-decoration-style: dashed;
+}
+
 .old, .diffactionold, .updaterold {
     background-color: #371111;
 }
