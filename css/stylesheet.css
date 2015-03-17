@@ -323,3 +323,12 @@ img {
 .new, .diffactionnew, .updaternew {
     background-color: #113711;
 }
+
+div.foo_continuous {
+    font-size: 120%;
+    padding: 12px 20px;
+    margin-left: 20px;
+    margin-right: 20px;
+    border-left: 10px solid #777777;
+    background-image: repeating-linear-gradient(45deg, #333333 0px, #333333 25px, transparent 25px, transparent 50px, #333333 50px);
+}
