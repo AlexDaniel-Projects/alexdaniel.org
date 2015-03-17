@@ -301,7 +301,12 @@ img {
 }
 
 .foo_dity {
-    margin: -15px 0 0 -200px;
+    margin: -30px 0 -15px -200px;
+    white-space: pre;
+}
+
+.foo_white img {
+    background-color: #FFFFFF;
 }
 
 .foo_titletext {
