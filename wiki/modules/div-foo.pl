@@ -22,6 +22,9 @@ $DivFooPrefix = 'foo_';
 push(@MyRules, \&DivFooRule);
 
 sub DivFooRule {
+  if (m/\G \&lt; ([a-z-_][a-z-_ ]+[a-z-_]) \! \&gt; (.*?) \&lt; \/ \/ \&gt; \s*\n/cgxs) {
+    return CloseHtmlEnvironment('p') . $q->div({-class => join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) }, $2);
+  }
   if (m/\G \&lt; ([a-z-_][a-z-_ ]+[a-z-_]) \&gt; \s*\n /cgx) {
     return CloseHtmlEnvironment('p') . AddHtmlEnvironment('div', 'class="' . join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) . '"');
   }
