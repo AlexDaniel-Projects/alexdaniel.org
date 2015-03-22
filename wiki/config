@@ -70,3 +70,16 @@ sub PrintPageCommentsLink {
   my ($id, $comments) = @_;
   print $q->p({-class=>'comment'}, GetPageLink($id, T('Comments on this page')));
 }
+
+$TagUrl = $ScriptName . '?action=tag;id=';
+$Action{tag} = \&DoTag;
+
+sub DoTag {
+  my $id = FreeToNormal(shift);
+  if ($IndexHash{$id}) {
+    ReBrowsePage($id);
+  } else {
+    SetParam('search', 'tag:' . $id);
+    DoJournal();
+  }
+}
