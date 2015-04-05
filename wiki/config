@@ -34,6 +34,8 @@ $CreoleDashStyleUnorderedLists = 1;
   	   => sub { shift =~ /I promise not to take things too close to my heart/i }]
 );
 
+push @PygmentizeArgs, qw(-O style=native);
+
 $Translate{'Search:'} = ' ';
 $Translate{'Go!'} = 'Search';
 $Translate{'Edit this page'} = 'Edit';
