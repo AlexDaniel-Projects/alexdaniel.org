@@ -381,3 +381,13 @@ div.foo_continuous {
 .tag:hover:before {
     border-color: transparent #555 transparent transparent;
 }
+
+.highlight {
+    padding: 5px;
+    border-style: dashed;
+    border-width: 1px;
+}
+
+pre {
+    margin: 2px;
+}
