@@ -342,6 +342,14 @@ div.foo_continuous {
     background-image: repeating-linear-gradient(45deg, #333333 0px, #333333 25px, transparent 25px, transparent 50px, #333333 50px);
 }
 
+.foo_info {
+    border-bottom: 1px dashed #EEEEEE;
+}
+
+.foo_info:hover {
+    border-bottom: 1px dotted #EEEEEE;
+}
+
 .tag {
     position: relative;
     margin-left: 10px;
