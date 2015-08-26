@@ -1,4 +1,7 @@
 use strict;
+use v5.10;
+
+=encoding utf8
 
 =head1 NAME
 
@@ -61,8 +64,8 @@ Example:
 
 =cut
 
-use vars qw($q %Action %Page $FreeLinkPattern @MyInitVariables @MyRules @MyAdminCode $DataDir $ScriptName);
-use vars qw($TagUrl $TagFeed $TagFeedIcon $TagFile);
+our ($q, %Action, %Page, $FreeLinkPattern, @MyInitVariables, @MyRules, @MyAdminCode, $DataDir, $ScriptName);
+our ($TagUrl, $TagFeed, $TagFeedIcon, $TagFile);
 
 push(@MyInitVariables, \&TagsInit);
 
@@ -95,8 +98,8 @@ sub TagWriteHash {
 push(@MyRules, \&TagsRule);
 
 sub TagsRule {
-  if (m/\G(\[\[tag:$FreeLinkPattern\]\])/cog
-      or m/\G(\[\[tag:$FreeLinkPattern\|([^]|]+)\]\])/cog) {
+  if (m/\G(\[\[tag:$FreeLinkPattern\]\])/cg
+      or m/\G(\[\[tag:$FreeLinkPattern\|([^]|]+)\]\])/cg) {
     # [[tag:Free Link]], [[tag:Free Link|alt text]]
     my ($tag, $text) = ($2, $3);
     my $html = $q->a({-href=>TagsGetLink($TagUrl, $tag),
@@ -124,8 +127,8 @@ will be regenerated.
 
 =cut
 
-*OldTagSave = *Save;
-*Save = *NewTagSave;
+*OldTagSave = \&Save;
+*Save = \&NewTagSave;
 
 sub NewTagSave { # called within a lock!
   OldTagSave(@_);
@@ -183,8 +186,8 @@ removed from the tags db.
 
 =cut
 
-*OldTagDeletePage = *DeletePage;
-*DeletePage = *NewTagDeletePage;
+*OldTagDeletePage = \&DeletePage;
+*DeletePage = \&NewTagDeletePage;
 
 sub NewTagDeletePage { # called within a lock!
   my $id = shift;
@@ -232,16 +235,17 @@ sub TagFind {
       $page{$id} = 1;
     }
   }
-  return sort keys %page;
+  my @result = sort keys %page;
+  return @result;
 }
 
-*OldTagGrepFiltered = *GrepFiltered;
-*GrepFiltered = *NewTagGrepFiltered;
+*OldTagFiltered = \&Filtered;
+*Filtered = \&NewTagFiltered;
 
-sub NewTagGrepFiltered { # called within a lock!
+sub NewTagFiltered { # called within a lock!
   my ($string, @pages) = @_;
   my %page = map { $_ => 1 } @pages;
-  # this is based on the code in SearchRegexp()
+  # looking at all the "tag:SOME TERMS" and and tag:TERM
   my @tagterms = map { FreeToNormal($_) } grep(/^-?tag:/, shift =~ /\"([^\"]+)\"|(\S+)/g);
   my @positives = map {substr($_, 4)} grep(/^tag:/, @tagterms);
   my @negatives = map {substr($_, 5)} grep(/^-tag:/, @tagterms);
@@ -259,7 +263,7 @@ sub NewTagGrepFiltered { # called within a lock!
   # filter out the tags from the search string
   $string = join(' ', grep(!/^-?tag:/, $string =~ /\"([^\"]+)\"|(\S+)/g));
   # run the old code for any remaining search terms
-  return OldTagGrepFiltered($string, sort keys %page);
+  return OldTagFiltered($string, sort keys %page);
 }
 
 =pod
@@ -271,8 +275,8 @@ We're need to remove all tag terms (again) in order to not confuse it.
 
 =cut
 
-*OldTagSearchString = *SearchString;
-*SearchString = *NewTagSearchString;
+*OldTagSearchString = \&SearchString;
+*SearchString = \&NewTagSearchString;
 
 sub NewTagSearchString {
   # filter out the negative tags from the search string

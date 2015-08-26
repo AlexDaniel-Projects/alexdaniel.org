@@ -13,26 +13,26 @@
 # this program. If not, see <http://www.gnu.org/licenses/>.
 
 use strict;
-
-package OddMuse;
+use v5.10;
 
 AddModuleDescription('div-foo.pl', 'Div Foo Extension');
 
-use vars qw($q @MyRules);
-use vars qw($DivFooPrefix);
+our (@MyRules);
+our ($DivFooPrefix);
+our (%RuleOrder);
 
 $DivFooPrefix = 'foo_';
 
 push(@MyRules, \&DivFooRule);
 
+# conflicts with <nowiki> and other such rules by usemod.pl
+$RuleOrder{\&DivFooRule} = 200;
+
 sub DivFooRule {
-  if (m/\G \&lt; ([a-z-_][a-z-_ ]+[a-z-_]) \! \&gt; (.*?) \&lt; \/ \/ \&gt; \s*\n/cgxs) {
-    return CloseHtmlEnvironment('p') . $q->div({-class => join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) }, $2);
-  }
-  if (m/\G \&lt; ([a-z-_][a-z-_ ]+[a-z-_]) \&gt; \s*\n /cgx) {
+  if (m/\G \&lt; ([a-z_-][a-z0-9 _-]+[a-z0-9_-]) \&gt; \s*\n /cgx) {
     return CloseHtmlEnvironment('p') . AddHtmlEnvironment('div', 'class="' . join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) . '"');
   }
-  if (m/\G \&lt; ([a-z-_][a-z-_ ]+[a-z-_]) (\?(.*?(?=\&gt;)))? \&gt; /cgx) {
+  if (m/\G \&lt; ([a-z_-][a-z0-9 _-]+[a-z0-9_-]) (\?(.*?(?=\&gt;)))? \&gt; /cgx) {
     my $title = $3 ? ' title="' . QuoteHtml($3) . '"' : '';
     return AddHtmlEnvironment('span', 'class="' . join(' ', map {"$DivFooPrefix$_"} split /\s+/, $1) . '"' . $title);
   }

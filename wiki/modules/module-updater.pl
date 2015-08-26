@@ -13,15 +13,14 @@
 # this program. If not, see <http://www.gnu.org/licenses/>.
 
 use strict;
+use v5.10;
 
 use File::Basename;
 use File::Copy;
 
-package OddMuse;
-
 AddModuleDescription('module-updater.pl', 'Module Updater Extension');
 
-use vars qw($q %Action @MyAdminCode $TempDir $ModuleDir);
+our ($q, %Action, @MyAdminCode, $TempDir, $ModuleDir);
 our $OddmuseModulesUrl = 'http://git.savannah.gnu.org/cgit/oddmuse.git/plain/modules/';
 
 push(@MyAdminCode, \&ModuleUpdaterMenu);

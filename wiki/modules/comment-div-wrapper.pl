@@ -14,12 +14,11 @@
 # this program. If not, see <http://www.gnu.org/licenses/>.
 
 use strict;
-
-package OddMuse;
+use v5.10;
 
 AddModuleDescription('comment-div-wrapper.pl', 'Comment Div Wrapper Extension');
 
-use vars qw($q $bol $OpenPageName @MyRules %RuleOrder $CommentsPrefix $CommentsPattern $FS);
+our ($q, $bol, $OpenPageName, @MyRules, %RuleOrder, $CommentsPrefix, $CommentsPattern, $FS);
 my $CommentDiv = 0;
 push(@MyRules, \&CommentDivWrapper);
 $RuleOrder{\&CommentDivWrapper} = -50;
@@ -31,7 +30,7 @@ sub CommentDivWrapper {
       return $q->start_div({-class=>'userComment'});
     }
   }
-  if ($OpenPageName =~ /$CommentsPattern/o) {
+  if ($OpenPageName =~ /$CommentsPattern/) {
     if ($bol and m/\G(\s*\n)*----+[ \t]*\n?/cg) {
       my $html = CloseHtmlEnvironments()
 	  . ($CommentDiv++ > 0 ? $q->end_div() : $q->h2({-class=>'commentsHeading'}, T('Comments:'))) . $q->start_div({-class=>'userComment'})
@@ -43,8 +42,8 @@ sub CommentDivWrapper {
 }
 
 # close final div
-*OldCommentDivApplyRules = *ApplyRules;
-*ApplyRules = *NewCommentDivApplyRules;
+*OldCommentDivApplyRules = \&ApplyRules;
+*ApplyRules = \&NewCommentDivApplyRules;
 
 sub NewCommentDivApplyRules {
   my ($blocks, $flags) = OldCommentDivApplyRules(@_);

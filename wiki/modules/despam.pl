@@ -17,8 +17,9 @@
 #    Boston, MA 02111-1307 USA
 
 use strict;
+use v5.10;
 
-use vars qw($q $Now %IndexHash %Action %Page $OpenPageName $FS $BannedContent $RcFile $RcDefault @MyAdminCode $FullUrlPattern $DeletedPage $StrangeBannedContent);
+our ($q, $Now, %IndexHash, %Action, %Page, $OpenPageName, $FS, $BannedContent, $RcFile, $RcDefault, @MyAdminCode, $FullUrlPattern, $DeletedPage, $StrangeBannedContent);
 
 AddModuleDescription('despam.pl', 'Despam Extension');
 

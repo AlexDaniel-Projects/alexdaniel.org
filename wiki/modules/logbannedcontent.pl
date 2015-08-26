@@ -15,11 +15,12 @@
 # along with this program. If not, see <http://www.gnu.org/licenses/>.
 
 use strict;
+use v5.10;
 
 AddModuleDescription('logbannedcontent.pl', 'LogBannedContent Module');
 
-use vars qw($OpenPageName $Now $DataDir $BannedContent);
-use vars qw($BannedFile);
+our ($q, $OpenPageName, $Now, $DataDir, $BannedContent);
+our ($BannedFile);
 
 $BannedFile = "$DataDir/spammer.log" unless defined $BannedFile;
 
@@ -33,8 +34,8 @@ sub LogNewBannedContent {
   return $rule;
 }
 
-*LogOldUserIsBanned = *UserIsBanned;
-*UserIsBanned = *LogNewUserIsBanned;
+*LogOldUserIsBanned = \&UserIsBanned;
+*UserIsBanned = \&LogNewUserIsBanned;
 
 sub LogNewUserIsBanned {
   my $str = shift;
@@ -47,6 +48,6 @@ sub LogWrite {
   my $rule = shift;
   my $id = $OpenPageName || GetId();
   AppendStringToFile($BannedFile,
-		     join("\t", TimeToW3($Now), GetRemoteHost(), $id, $rule)
+		     join("\t", TimeToW3($Now), $q->remote_addr(), $id, $rule)
 		     . "\n");
 }

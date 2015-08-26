@@ -17,11 +17,9 @@ use strict;
 use v5.10;
 use utf8;
 
-package OddMuse;
-
 AddModuleDescription('pygmentize.pl', 'Pygmentize Extension');
 
-our ($q, $bol, %RuleOrder, @MyRules, $TempDir);
+our ($q, $bol, @KnownLocks, %RuleOrder, @MyRules, $TempDir, @MyInitVariables);
 
 # You can push other stuff to that list.
 # For example: push @PygmentizeArgs, qw(-F whitespace:spaces=true,tabs=true)
@@ -54,9 +52,14 @@ sub DoPygmentize {
 
   RequestLockDir('pygmentize') or return '';
   WriteStringToFile("$TempDir/pygmentize", $contents);
-  my $output = `pygmentize $lexer -f html -O encoding=utf8 $args -- \Q$TempDir/pygmentize\E`;
+  my $output = `pygmentize $lexer -f html -O encoding=utf8 $args -- \Q$TempDir/pygmentize\E  2>&1`;
   ReleaseLockDir('pygmentize');
 
   utf8::decode($output);
+
+  if ($?) {
+    $output = $q->p($q->strong($output)) # "sh: pygmentize: command not found"
+        . $q->pre($contents);
+  }
   return $output;
 }
