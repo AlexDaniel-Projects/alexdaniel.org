@@ -58,7 +58,7 @@ sub GetSearchForm {
   }
     return GetFormStart(undef, 'get', 'search')
         . $form . #$q->submit('dosearch', T('Go!')) .
-        $q->endform;
+        $q->end_form;
 }
 
 sub GetHeaderTitle {
