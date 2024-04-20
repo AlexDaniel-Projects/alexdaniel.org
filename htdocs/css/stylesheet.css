@@ -398,4 +398,6 @@ div.foo_continuous {
 
 pre {
     margin: 2px;
+    white-space: pre-wrap;
+    word-break: break-word;
 }

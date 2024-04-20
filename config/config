@@ -7,7 +7,7 @@ $SiteName  = "AlexDaniel";
 use Digest::SHA qw(sha256_hex);
 $PassHashFunction = 'sha256_hex';
 $PassSalt = '0c5bc418b2009ab13b2cf1d5b4a46b0882cf4f60a77b09373ef5c9af26f67500';
-$AdminPass = '6a6f03729f9b663882242c72e26301410cdc8671b9269dbfd40450c5e6dfeb6d';
+$AdminPass = 'f2b28c58ce35894f96d663e0ebc417afd7a62689b5b5ab68978cc4dda6ff49ab';
 
 $CommentsPrefix = 'Comments_on_';
 $CommentsPattern = "^(?|Comments_on_(.*)|.*)\$";
@@ -15,7 +15,7 @@ $EditAllowed = 1;
 $StyleSheet = '/css/stylesheet.css';
 $AskPage = 'Ask';
 $MaxPost = 430080;
-$HomePage = 'Blog';
+$HomePage = 'About';
 $RCName = 'Recent Changes';
 @UserGotoBarPages = ($HomePage, $AskPage, $RCName);
 $SurgeProtectionViews = 20;
@@ -34,6 +34,9 @@ $CreoleDashStyleUnorderedLists = 1;
   	   => sub { shift =~ /I promise not to take things too close to my heart/i }]
 );
 
+sub GetFooterLinks {
+}
+
 push @PygmentizeArgs, qw(-O style=native);
 
 $Translate{'Search:'} = ' ';
@@ -43,9 +46,9 @@ $Translate{'Comments on this page'} = 'Comments';
 $Translate{'To save this page you must answer this question:'} = 'Spam protection!';
 
 sub GetSearchForm {
-    my $form = # $q->label({-for=>'search'}, '') . ''
-      $q->textfield(-name=>'search', -id=>'search', -size=>20, -placeholder=>'Find...',
-                    -accesskey=>T('f')) . '';
+    #my $form = # $q->label({-for=>'search'}, '') . ''
+    #  $q->textfield(-name=>'search', -id=>'search', -size=>20, -placeholder=>'Find...',
+    #                -accesskey=>T('f')) . '';
     if ($ReplaceForm) {
         $form .= $q->label({-for=>'replace'}, T('Replace:')) . ' '
             . $q->textfield(-name=>'replace', -id=>'replace', -size=>20) . ' '

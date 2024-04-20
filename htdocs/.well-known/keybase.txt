@@ -1,0 +1,72 @@
+==================================================================
+https://keybase.io/alexdaniel
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://alexdaniel.org
+  * I am alexdaniel (https://keybase.io/alexdaniel) on keybase.
+  * I have a public key with fingerprint E1A5 75CC C2D5 8C7A A560  9FE1 4710 D9D4 34A4 A3C6
+
+To do so, I am signing this object:
+
+{
+    "body": {
+        "key": {
+            "eldest_kid": "010114837186f5f658519fa646d0ad23dc8d3cde80cbe12dc6cadd38e8dc42f699330a",
+            "fingerprint": "e1a575ccc2d58c7aa5609fe14710d9d434a4a3c6",
+            "host": "keybase.io",
+            "key_id": "4710d9d434a4a3c6",
+            "kid": "010114837186f5f658519fa646d0ad23dc8d3cde80cbe12dc6cadd38e8dc42f699330a",
+            "uid": "a24659ea5edb9b34c2f63c3c6708f919",
+            "username": "alexdaniel"
+        },
+        "service": {
+            "hostname": "alexdaniel.org",
+            "protocol": "https:"
+        },
+        "type": "web_service_binding",
+        "version": 1
+    },
+    "ctime": 1471619741,
+    "expire_in": 157680000,
+    "prev": "16b693dcb9da87f2c21fabafd2d7be152b21ec7c97bbae0a3e0b6f4e57235476",
+    "seqno": 9,
+    "tag": "signature"
+}
+
+which yields the signature:
+
+-----BEGIN PGP MESSAGE-----
+
+owGtkm1QVFUYx3chCCjGlWIlBKU7zRC66n1/2YHAEokIdcIikKB7zzl3ucOyu+4u
+BK1kYowigamIZSUySgpEtGoxiSRqAvKiZPGSTcaAVMxAzhDo5CR1L1Of6mPny5nz
+nN///zznP+edYF9dgD7J8N239PFjnfreSUmX3op1ejDJDosxswfLQwsbskLkcufk
+KRAzYziBEwTNUxzBszIjswzPEIIssjQLcRGSFAQ8pABEPA4kRJAQsECEkOIRDwFN
+yqwgUBQuYiZMVmwW5HQ4FZtbtUWEyHAMAICEDA84UWRYXJARQXMEDgVIU7RIixRg
+VWGu3aUp1OEk0YVWK3a1ph5yFsb7D/5/nrtgwU4kaZYRkMggKAkSRQMVoYDakMN5
+WSAEDXQhp03MRxptRUVQtCnIipWYMLVeqACkRau95V/MarvTouodTrvbDuxW9S7X
+7Xa4zJrWXezQ4NeQlPO3TY6k2KCapaooRE6XYrdhZkIlgVvRfLUEWULgaMKEoSKH
+4kQ5ikYwHMvj6tL6oELVkmClLFZQc5AEKPKcTAKSkEVJlCEJOTUShpRIAgEOCJwk
+iQgXKYRLrEwjhiMphua0qF1oq82OmQV1TtGieroUi010FzgRVhJU7hPxgE4foPP3
+89F+mS4o0PDP1zuZYNB521OSGZsnbVNx3FKxu+FE76Exx6uR20/Nnb1Q733ktjKZ
+esw9ft34cVBFrf6li1M3oj2WXPenh8eKZhIdP74f1gUPfH09v7xtt7Xrqa7mjfsq
+92Te/ygphE8fMB4vdvAVgdjJWt/mJesnJvCqrZkDxpGExRFXl/X+cbVxvjugdd1B
+vLt0wv5znbx/rX/4yMgHlSvnZm7Npx2Y+uz1lstNsZVLBrPf6FkTVtrRIFYMxcW/
+YJmISf2mse2Ec29m2Lln+sCzD876IAlMPxkce/NO5Y5Lqy6nWJO9o7fDo/acrfI9
+nc31vDl6qDp1kV4Ozw/p+3VwuKX5yDajqaNve0KylSOrch8FO3/6DdS9VW9IU/gE
+YnHkPQrfa96yz29GVzbmkh86Gns+YS7r+9qpyWYXiG8/UvP2lVOe5efudZwPHR6K
+HkElMaHVdOSOpjWg5sNOT+C66eUDKV7T5v7HCyYbubINfn8akuqCM6LifzFdG/Yd
+jxqc1esTf0+ta9xSG5M4tGKsNvvuK7s3zefFRh29Euq9P/t5UKt7//oVTGT/mYs3
+/AtCnpu/6x9f/m772rshrQ09basOv2f8YeCr0o6ih8efTz9zzYA/XYyNpkSeLtt5
+y4O/2Leherx+W6fxi7Ls6Tuf1DREv5zRciFu82TSyl39j21cNOiNv3mwqePSYMbc
+DMyKeAIt/XJZ9l8=
+=lxRL
+-----END PGP MESSAGE-----
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/alexdaniel
+
+==================================================================
